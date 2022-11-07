@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.List;
 
 public class TareaGui {
     private JPanel mainPanel;
@@ -24,6 +25,17 @@ public class TareaGui {
     private JButton eliminarButton;
     private JPanel tablePanel;
     private JScrollPane scrollPane;
+
+    public void MyTableForm(){
+        PersonTableModel model = new PersonTableModel(
+                List.of(createPerson())
+        );
+
+    }
+    private Person createPerson() {
+        Person person = new Person();
+        return person;
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
