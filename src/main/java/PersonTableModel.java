@@ -28,6 +28,14 @@ public class PersonTableModel extends AbstractTableModel {
         this.people = people;
     }
 
+    public void add(Person person) {
+        people.add(person);
+    }
+
+    public void delete(int selectedRow) {
+        people.remove(selectedRow);
+    }
+
     @Override
     public int getRowCount() {
         return people.size();

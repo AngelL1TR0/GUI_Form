@@ -1,10 +1,10 @@
 import javax.swing.*;
-import java.util.List;
+import java.util.ArrayList;
 
 public class TareaGui {
     private JPanel mainPanel;
     private JPanel formularioPanel;
-    private JTextField textField1;
+    private JTextField idField;
     private JTextField primerNombreTextField;
     private JTextField segundoNombreTextField;
     private JTextField primerApellidoTextField;
@@ -26,19 +26,39 @@ public class TareaGui {
     private JPanel tablePanel;
     private JScrollPane scrollPane;
 
-    public void MyTableForm(){
-        PersonTableModel model = new PersonTableModel(
-                List.of(createPerson())
-        );
 
-    }
-    private Person createPerson() {
-        Person person = new Person();
-        return person;
+    public TareaGui() {
+        PersonTableModel personTableModel = new PersonTableModel(new ArrayList<>());
+        table.setModel(personTableModel);
+
+
+        guardarButton.addActionListener(actionEvent -> {
+
+            String id = idField.getText();
+            String firstSurname = primerApellidoTextField.getText();
+            String secondSurname = segundoApellidotextField.getText();
+            String firstName = primerNombreTextField.getText();
+            String secondName = segundoNombreTextField.getText();
+            String gender = (String)comboBoxSexo.getSelectedItem() ;
+            String adress = direccionTextField.getText();
+            long phoneNumber = Long.parseLong(telefonotextField.getText());
+
+            Person person = new Person(id, firstSurname, secondSurname, firstName, secondName, gender, adress, phoneNumber);
+            personTableModel.add(person);
+            personTableModel.fireTableDataChanged();
+
+        });
+        eliminarButton.addActionListener(actionEvent -> {
+            int select = table.getSelectedRow();
+            if (select != -1){
+                personTableModel.delete(select);
+                personTableModel.fireTableDataChanged();
+            }
+        });
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Tarea GUI");
         TareaGui myForm = new TareaGui();
 
         frame.setContentPane(myForm.mainPanel);
